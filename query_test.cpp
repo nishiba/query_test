@@ -17,6 +17,23 @@ TEST(Query, takeTest)
     EXPECT_EQ(x[1], y[1]);
 }
 
+TEST(Query, takeWhileTest)
+{
+    std::vector<int> x = range(1, 10).toStdVector();
+    const std::vector<int> y = query(x).takeWhile([](int x) {return x < 3; }).toStdVector();
+    EXPECT_EQ(2, y.size());
+    EXPECT_EQ(x[1], y[1]);
+}
+
+TEST(Query, takeWhileWithIndexTest)
+{
+    std::vector<int> x = range(0, 10).toStdVector();
+    const std::vector<int> y = query(x).takeWhileWithIndex([](int x, int i) {return i < 3; }).toStdVector();
+    EXPECT_EQ(3, y.size());
+    EXPECT_EQ(x[1], y[1]);
+}
+
+
 TEST(Query, zipTest)
 {
     std::vector<int> x = range(0, 10).toStdVector();
@@ -55,6 +72,7 @@ TEST(Query, selectUnzipTest)
     EXPECT_EQ(x[0] + y[0], z[0]);
     EXPECT_EQ(x[1] + y[1], z[1]);
 }
+
 
 
 TEST(Query, applyTest)
